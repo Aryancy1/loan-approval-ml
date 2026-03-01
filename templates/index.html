@@ -2,52 +2,149 @@
 <html>
 <head>
     <title>Loan Approval Prediction</title>
+    <style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        padding: 40px;
+        border-radius: 20px;
+        width: 500px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        color: white;
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        font-size: 14px;
+    }
+
+    input::placeholder {
+        color: #ddd;
+    }
+
+    select option {
+        color: black;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 20px;
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 114, 255, 0.5);
+    }
+
+    .result {
+        margin-top: 25px;
+        padding: 14px;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .approved {
+        background-color: rgba(0, 255, 0, 0.2);
+        border: 1px solid #00ff88;
+    }
+
+    .rejected {
+        background-color: rgba(255, 0, 0, 0.2);
+        border: 1px solid #ff4d4d;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 </head>
 <body>
-    <h2>Loan Approval Prediction System</h2>
+
+<div class="container">
+    <h1>Loan Approval Prediction</h1>
 
     <form action="/predict" method="post">
 
-        <input type="number" name="ApplicantIncome" placeholder="Applicant Income" required><br><br>
-
-        <input type="number" name="CoapplicantIncome" placeholder="Coapplicant Income" required><br><br>
-
-        <input type="number" name="LoanAmount" placeholder="Loan Amount" required><br><br>
-
-        <input type="number" name="Loan_Amount_Term" placeholder="Loan Amount Term" required><br><br>
-
-        <input type="number" step="any" name="Credit_History" placeholder="Credit History (0 or 1)" required><br><br>
+        <input type="number" name="ApplicantIncome" placeholder="Applicant Income" required>
+        <input type="number" name="CoapplicantIncome" placeholder="Coapplicant Income" required>
+        <input type="number" name="LoanAmount" placeholder="Loan Amount" required>
+        <input type="number" name="Loan_Amount_Term" placeholder="Loan Amount Term" required>
+        <input type="number" name="Credit_History" placeholder="Credit History (0 or 1)" required>
 
         <select name="Gender">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
-        </select><br><br>
+        </select>
 
         <select name="Married">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select><br><br>
+            <option value="Yes">Married</option>
+            <option value="No">Not Married</option>
+        </select>
 
         <select name="Education">
             <option value="Graduate">Graduate</option>
             <option value="Not Graduate">Not Graduate</option>
-        </select><br><br>
+        </select>
 
         <select name="Self_Employed">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select><br><br>
+            <option value="Yes">Self Employed</option>
+            <option value="No">Not Self Employed</option>
+        </select>
 
         <select name="Property_Area">
             <option value="Urban">Urban</option>
+            <option value="Semiurban">Semi Urban</option>
             <option value="Rural">Rural</option>
-            <option value="Semiurban">Semiurban</option>
-        </select><br><br>
+        </select>
 
         <button type="submit">Predict</button>
     </form>
 
-    <h3>{{ prediction_text }}</h3>
+    {% if prediction_text %}
+        <div class="result {% if 'Approved' in prediction_text %}approved{% else %}rejected{% endif %}">
+            {{ prediction_text }}
+        </div>
+    {% endif %}
+
+</div>
 
 </body>
 </html>
