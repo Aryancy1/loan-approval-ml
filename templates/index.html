@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Approval Prediction</title>
+</head>
+<body>
+    <h2>Loan Approval Prediction System</h2>
+
+    <form action="/predict" method="post">
+
+        <input type="number" name="ApplicantIncome" placeholder="Applicant Income" required><br><br>
+
+        <input type="number" name="CoapplicantIncome" placeholder="Coapplicant Income" required><br><br>
+
+        <input type="number" name="LoanAmount" placeholder="Loan Amount" required><br><br>
+
+        <input type="number" name="Loan_Amount_Term" placeholder="Loan Amount Term" required><br><br>
+
+        <input type="number" step="any" name="Credit_History" placeholder="Credit History (0 or 1)" required><br><br>
+
+        <select name="Gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br><br>
+
+        <select name="Married">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <select name="Education">
+            <option value="Graduate">Graduate</option>
+            <option value="Not Graduate">Not Graduate</option>
+        </select><br><br>
+
+        <select name="Self_Employed">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <select name="Property_Area">
+            <option value="Urban">Urban</option>
+            <option value="Rural">Rural</option>
+            <option value="Semiurban">Semiurban</option>
+        </select><br><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <h3>{{ prediction_text }}</h3>
+
+</body>
+</html>
